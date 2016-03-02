@@ -1,6 +1,5 @@
 # karel-compiler
-
-A Karel compiler based on the following grammar rules:
+Grammar used on the karel-compiler project:
 
 <program> ::= "class" "program" "{" <functions declarations> <main function> "}"
 
@@ -10,7 +9,7 @@ A Karel compiler based on the following grammar rules:
 
 <function declaration> := "void" <name function> "(" ")" "{" <body> "}"
 
-/<name function> ::= pending
+/<name function> ::= semantic: add function name to token table.
 
 <call function> ::= <name of function> "(" ")"
 
@@ -23,73 +22,28 @@ A Karel compiler based on the following grammar rules:
     "putbeeper" |
     "turnoff"
 
-/<customer function> ::= pending
+/<customer function> ::= semantic: calls a function previously added to the token table.
 
 <body> ::= <expressions>
 
 <expressions> ::= <expression> <expressions prima>
 
-<expressions prima> ::= <expression> <expressions prima>
+<expressions prima> ::= [<expression> <expressions prima>]
 
-<expression> ::= <if expression> | <while expression> | <iterate expression> | <clone expression> | <call function>
+<expression> ::= [<if expression> | <while expression> | <iterate expression> | <clone expression> | <call function>]
 
-<if expression> ::= "if" "(" <conditional> ")" "{" "}"
-----------------------------------------
+<if expression> ::= "if" "(" <conditional> ")" "{" <body> "}" [<else if>]
 
-<expression> ::= <call function> |
-  <if expression> |
-  <while expression> |
-  <iterate expression> |
-  <clone expression>
-
-<clone expression> ::= "clone" "(" <customer function> ")"
-
-
-
-
-
-<customer function> ::= <string without spaces>
-
-<if expression> ::= "if" ( <conditional> ) "{" <body> "}" [ <elseif> ]
-<elseif> ::= "else" "{" <body> "}"
+<else if> ::= "else" "{" <body> "}"
 
 <while expression> ::= "while" "(" <conditional> ")" "{" <body> "}"
 
+<clone expression> ::= "clone" "(" <customer function> ")"
+
 <iterate expression> ::= "iterate" "(" <number> ")" "{" <body> "}"
 
-<conditional> ::= <simple condition> | <composed condition>
+<conditional> :: = <composed conditional> | <simple conditional>
 
-<simple condition> ::=
-  "frontIsClear"
-  | "frontIsBlocked"
-  | "leftIsClear"
-  | "leftIsBlocked"
-  | "rightIsClear"
-  | "rightIsBlocked"
-  | "nextToABeeper"
-  | "notNextToABeeper"
-  | "anyBeepersInBeeperBag"
-  | "noBeepersInBeeperBag"
-  | "facingNorth"
-  | "facingSouth"
-  | "facingEast"
-  | "facingWest"
-  | "notFacingNorth"
-  | "notFacingSouth"
-  | "notFacingEast"
-  | "notFacingWest"
-  | "karelInCell"
+<simple conditional> :: = "frontIsClear" | "frontIsBlocked" | "leftIsClear" | "leftIsBlocked" | "rightIsClear" | "rightIsBlocked" | "nextToABeeper" | "notNextToABeeper" | "anyBeepersInBeeperBag" | "noBeepersInBeeperBag" | "facingNorth" | "facingSouth" | "facingEast" | "facingWest" | "notFacingNorth" | "notFacingSouth" | "notFacingEast" | "notFacingWest"
 
-<composed condition> ::=   <simple condition> [ <or condition> ]
-
-<or condition> ::=
-    "||" <simple condition> |
-    [ <and condition> ]
-
-<and condition> ::=     
-    "&&" <simple condition> |
-    [ <not condition> ]
-
-<not condition> ::=
-  "!" <simple condition> |
-  <simple condition>
+<composed conditional> ::= <simple conditional> "||" <simple conditional> | <simple conditional> "&&" <simple conditional>
