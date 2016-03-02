@@ -157,16 +157,16 @@ evaluator = {
                 return (karel.orientationIndex === 3);
 
             case INTERCODE_KEYS.NOT_FACING_NORTH:
-                return !this,evaluateCondition(execution, INTERCODE_KEYS.FACING_NORTH, world, karel);
+                return !this.evaluateCondition(execution, INTERCODE_KEYS.FACING_NORTH, world, karel);
 
             case INTERCODE_KEYS.NOT_FACING_EAST:
-                return !this,evaluateCondition(execution, INTERCODE_KEYS.FACING_EAST, world, karel);
+                return !this.evaluateCondition(execution, INTERCODE_KEYS.FACING_EAST, world, karel);
 
             case INTERCODE_KEYS.NOT_FACING_SOUTH:
-                return !this,evaluateCondition(execution, INTERCODE_KEYS.FACING_SOUTH, world, karel);
+                return !this.evaluateCondition(execution, INTERCODE_KEYS.FACING_SOUTH, world, karel);
 
             case INTERCODE_KEYS.NOT_FACING_WEST:
-                return !this,evaluateCondition(execution, INTERCODE_KEYS.FACING_WEST, world, karel);
+                return !this.evaluateCondition(execution, INTERCODE_KEYS.FACING_WEST, world, karel);
         }
     },
     evaluateStep: function(execution, world, karel) {
